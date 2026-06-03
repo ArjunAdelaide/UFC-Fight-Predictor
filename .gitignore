@@ -1,0 +1,23 @@
+# Python cache and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local datasets
+data/*.csv
+
+# Generated model artifacts
+outputs/*.csv
+outputs/*.npz
+outputs/*.pkl
+!outputs/baseline_coefficients.csv
+!outputs/baseline_metrics.csv
+!outputs/calibration_buckets.csv
+!outputs/confidence_buckets.csv
+!outputs/model_report.md
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
