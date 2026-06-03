@@ -16,6 +16,12 @@ chronological feature engineering, leakage-safe historical fighter profiles, a
 date-based train/test split, and a transparent NumPy logistic regression
 baseline.
 
+## Current Baseline
+
+The current NumPy logistic regression baseline achieves **62.1% accuracy** and
+**0.650 log loss** on a future-dated test split, compared with a **50.2%**
+majority-class baseline.
+
 ## Highlights
 
 - Builds pre-fight features from historical data only
