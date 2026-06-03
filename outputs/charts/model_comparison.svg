@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="428" viewBox="0 0 920 428">
+  <style>
+    .title { font: 700 24px system-ui, -apple-system, Segoe UI, sans-serif; fill: #0f172a; }
+    .subtitle { font: 15px system-ui, -apple-system, Segoe UI, sans-serif; fill: #475569; }
+    .label { font: 15px system-ui, -apple-system, Segoe UI, sans-serif; fill: #1e293b; }
+    .value { font: 700 15px system-ui, -apple-system, Segoe UI, sans-serif; fill: #0f172a; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="24" y="34" class="title">Model Comparison</text>
+  <text x="24" y="58" class="subtitle">Accuracy on fights from 2024-01-01 onward</text>
+  
+            <text x="24" y="104" class="label">Higher experience</text>
+            <rect x="230" y="82" width="379" height="26" rx="5" fill="#94a3b8" />
+            <text x="619" y="102" class="value">45.0%</text>
+            
+            <text x="24" y="152" class="label">Majority class</text>
+            <rect x="230" y="130" width="422" height="26" rx="5" fill="#94a3b8" />
+            <text x="662" y="150" class="value">50.2%</text>
+            
+            <text x="24" y="200" class="label">Higher Elo</text>
+            <rect x="230" y="178" width="466" height="26" rx="5" fill="#94a3b8" />
+            <text x="706" y="198" class="value">55.4%</text>
+            
+            <text x="24" y="248" class="label">Better recent form</text>
+            <rect x="230" y="226" width="487" height="26" rx="5" fill="#94a3b8" />
+            <text x="727" y="246" class="value">57.9%</text>
+            
+            <text x="24" y="296" class="label">Higher win pct</text>
+            <rect x="230" y="274" width="510" height="26" rx="5" fill="#94a3b8" />
+            <text x="750" y="294" class="value">60.5%</text>
+            
+            <text x="24" y="344" class="label">NumPy logistic regression</text>
+            <rect x="230" y="322" width="523" height="26" rx="5" fill="#2563eb" />
+            <text x="763" y="342" class="value">62.1%</text>
+            
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="470" viewBox="0 0 920 470">
+  <style>
+    .title { font: 700 24px system-ui, -apple-system, Segoe UI, sans-serif; fill: #0f172a; }
+    .subtitle { font: 15px system-ui, -apple-system, Segoe UI, sans-serif; fill: #475569; }
+    .tick { font: 12px system-ui, -apple-system, Segoe UI, sans-serif; fill: #475569; }
+    .legend { font: 14px system-ui, -apple-system, Segoe UI, sans-serif; fill: #1e293b; }
+    .grid { stroke: #e2e8f0; stroke-width: 1; }
+    .axis { stroke: #94a3b8; stroke-width: 1.5; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="24" y="34" class="title">Calibration Buckets</text>
+  <text x="24" y="58" class="subtitle">Predicted probability compared with actual Fighter A win rate</text>
+  <line x1="72" x2="862" y1="371" y2="371" class="grid" /><text x="58" y="376" class="tick" text-anchor="end">0.0%</text><line x1="72" x2="862" y1="300" y2="300" class="grid" /><text x="58" y="305" class="tick" text-anchor="end">25.0%</text><line x1="72" x2="862" y1="229" y2="229" class="grid" /><text x="58" y="234" class="tick" text-anchor="end">50.0%</text><line x1="72" x2="862" y1="158" y2="158" class="grid" /><text x="58" y="163" class="tick" text-anchor="end">75.0%</text><line x1="72" x2="862" y1="86" y2="86" class="grid" /><text x="58" y="91" class="tick" text-anchor="end">100.0%</text>
+  <line x1="72" x2="72" y1="86" y2="371" class="axis" />
+  <line x1="72" x2="862" y1="371" y2="371" class="axis" />
+  <polyline points="72,357 159,324 247,298 335,270 423,243 510,214 598,188 686,162 774,138 862,97" fill="none" stroke="#2563eb" stroke-width="3" />
+<circle cx="72" cy="357" r="4" fill="#2563eb" />
+<circle cx="159" cy="324" r="4" fill="#2563eb" />
+<circle cx="247" cy="298" r="4" fill="#2563eb" />
+<circle cx="335" cy="270" r="4" fill="#2563eb" />
+<circle cx="423" cy="243" r="4" fill="#2563eb" />
+<circle cx="510" cy="214" r="4" fill="#2563eb" />
+<circle cx="598" cy="188" r="4" fill="#2563eb" />
+<circle cx="686" cy="162" r="4" fill="#2563eb" />
+<circle cx="774" cy="138" r="4" fill="#2563eb" />
+<circle cx="862" cy="97" r="4" fill="#2563eb" />
+  <polyline points="72,371 159,354 247,297 335,285 423,229 510,204 598,180 686,175 774,112 862,181" fill="none" stroke="#f97316" stroke-width="3" />
+<circle cx="72" cy="371" r="4" fill="#f97316" />
+<circle cx="159" cy="354" r="4" fill="#f97316" />
+<circle cx="247" cy="297" r="4" fill="#f97316" />
+<circle cx="335" cy="285" r="4" fill="#f97316" />
+<circle cx="423" cy="229" r="4" fill="#f97316" />
+<circle cx="510" cy="204" r="4" fill="#f97316" />
+<circle cx="598" cy="180" r="4" fill="#f97316" />
+<circle cx="686" cy="175" r="4" fill="#f97316" />
+<circle cx="774" cy="112" r="4" fill="#f97316" />
+<circle cx="862" cy="181" r="4" fill="#f97316" />
+  <text x="72" y="406" class="tick" text-anchor="middle">0-10%</text><text x="159" y="406" class="tick" text-anchor="middle">10-20%</text><text x="247" y="406" class="tick" text-anchor="middle">20-30%</text><text x="335" y="406" class="tick" text-anchor="middle">30-40%</text><text x="423" y="406" class="tick" text-anchor="middle">40-50%</text><text x="510" y="406" class="tick" text-anchor="middle">50-60%</text><text x="598" y="406" class="tick" text-anchor="middle">60-70%</text><text x="686" y="406" class="tick" text-anchor="middle">70-80%</text><text x="774" y="406" class="tick" text-anchor="middle">80-90%</text><text x="862" y="406" class="tick" text-anchor="middle">90-100%</text>
+  <rect x="630" y="28" width="14" height="14" fill="#2563eb" rx="3" />
+  <text x="652" y="40" class="legend">Avg predicted</text>
+  <rect x="760" y="28" width="14" height="14" fill="#f97316" rx="3" />
+  <text x="782" y="40" class="legend">Actual win rate</text>
+</svg>

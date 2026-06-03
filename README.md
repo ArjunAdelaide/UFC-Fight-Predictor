@@ -54,6 +54,14 @@ test:  fights on or after 2024-01-01
 This split is designed to approximate the real use case: training on past
 fights and evaluating on future fights.
 
+## Visual Summary
+
+![Model comparison](outputs/charts/model_comparison.svg)
+
+![Calibration buckets](outputs/charts/calibration_buckets.svg)
+
+![Accuracy by confidence](outputs/charts/confidence_buckets.svg)
+
 ## Methodology
 
 The raw CSV stores each fight with:
@@ -138,11 +146,16 @@ Categorical inputs include:
 |   `-- methodology.md
 |-- src
 |   |-- feature_engineering.py
+|   |-- generate_charts.py
 |   |-- predict_matchup.py
 |   `-- train_baseline.py
 |-- tests
 |   `-- test_feature_engineering.py
 `-- outputs
+    |-- charts
+    |   |-- calibration_buckets.svg
+    |   |-- confidence_buckets.svg
+    |   `-- model_comparison.svg
     |-- baseline_coefficients.csv
     |-- calibration_buckets.csv
     |-- confidence_buckets.csv
@@ -202,6 +215,9 @@ outputs/confidence_buckets.csv
 outputs/baseline_logistic_model.npz
 outputs/current_fighter_profiles.pkl
 outputs/model_report.md
+outputs/charts/model_comparison.svg
+outputs/charts/calibration_buckets.svg
+outputs/charts/confidence_buckets.svg
 ```
 
 Output files:
@@ -220,6 +236,12 @@ Output files:
 The generated [model report](outputs/model_report.md) summarizes the latest
 dataset split, metrics, calibration buckets, confidence buckets, and largest
 coefficients.
+
+To regenerate the SVG charts after training, run:
+
+```bash
+python3 src/generate_charts.py
+```
 
 ## Prediction
 

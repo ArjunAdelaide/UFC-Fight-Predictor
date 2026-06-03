@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430">
+  <style>
+    .title { font: 700 24px system-ui, -apple-system, Segoe UI, sans-serif; fill: #0f172a; }
+    .subtitle { font: 15px system-ui, -apple-system, Segoe UI, sans-serif; fill: #475569; }
+    .tick { font: 12px system-ui, -apple-system, Segoe UI, sans-serif; fill: #475569; }
+    .value { font: 700 14px system-ui, -apple-system, Segoe UI, sans-serif; fill: #0f172a; }
+    .grid { stroke: #e2e8f0; stroke-width: 1; }
+    .axis { stroke: #94a3b8; stroke-width: 1.5; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="24" y="34" class="title">Accuracy by Confidence</text>
+  <text x="24" y="58" class="subtitle">Higher confidence predictions should generally be more accurate</text>
+  <line x1="80" x2="850" y1="339" y2="339" class="grid" /><text x="66" y="344" class="tick" text-anchor="end">0.0%</text><line x1="80" x2="850" y1="273" y2="273" class="grid" /><text x="66" y="278" class="tick" text-anchor="end">25.0%</text><line x1="80" x2="850" y1="207" y2="207" class="grid" /><text x="66" y="212" class="tick" text-anchor="end">50.0%</text><line x1="80" x2="850" y1="141" y2="141" class="grid" /><text x="66" y="146" class="tick" text-anchor="end">75.0%</text><line x1="80" x2="850" y1="74" y2="74" class="grid" /><text x="66" y="79" class="tick" text-anchor="end">100.0%</text>
+  <line x1="80" x2="80" y1="74" y2="339" class="axis" />
+  <line x1="80" x2="850" y1="339" y2="339" class="axis" />
+  
+            <rect x="113" y="196" width="89" height="143" rx="6" fill="#16a34a" />
+            <text x="157.5" y="188" class="value" text-anchor="middle">54.1%</text>
+            <text x="157.5" y="371" class="tick" text-anchor="middle">50-60%</text>
+            
+            <rect x="267" y="158" width="89" height="181" rx="6" fill="#16a34a" />
+            <text x="311.5" y="150" class="value" text-anchor="middle">68.6%</text>
+            <text x="311.5" y="371" class="tick" text-anchor="middle">60-70%</text>
+            
+            <rect x="421" y="148" width="89" height="191" rx="6" fill="#16a34a" />
+            <text x="465.5" y="140" class="value" text-anchor="middle">72.2%</text>
+            <text x="465.5" y="371" class="tick" text-anchor="middle">70-80%</text>
+            
+            <rect x="575" y="94" width="89" height="245" rx="6" fill="#16a34a" />
+            <text x="619.5" y="86" class="value" text-anchor="middle">92.6%</text>
+            <text x="619.5" y="371" class="tick" text-anchor="middle">80-90%</text>
+            
+            <rect x="729" y="141" width="89" height="198" rx="6" fill="#16a34a" />
+            <text x="773.5" y="133" class="value" text-anchor="middle">75.0%</text>
+            <text x="773.5" y="371" class="tick" text-anchor="middle">90-100%</text>
+            
+</svg>
