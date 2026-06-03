@@ -121,6 +121,9 @@ Categorical inputs include:
 |-- LEARNING_NOTES.md
 |-- README.md
 |-- requirements.txt
+|-- .github
+|   `-- workflows
+|       `-- tests.yml
 |-- data
 |   `-- .gitkeep
 |-- docs
@@ -129,6 +132,8 @@ Categorical inputs include:
 |   |-- feature_engineering.py
 |   |-- predict_matchup.py
 |   `-- train_baseline.py
+|-- tests
+|   `-- test_feature_engineering.py
 `-- outputs
     |-- baseline_coefficients.csv
     |-- calibration_buckets.csv
@@ -251,6 +256,9 @@ What is the probability that fighter_a beats fighter_b?
 ```
 
 ## Tests
+
+GitHub Actions runs the test suite automatically on pushes and pull requests to
+`main`.
 
 Run the test suite with:
 
