@@ -57,3 +57,19 @@ most powerful model, but it is easy to inspect and a good baseline.
 
 Once the feature pipeline is solid, stronger models become much easier to add.
 
+## Step 5: Improve One Thing At A Time
+
+A useful model improvement was training-time matchup flipping. For each training
+row, the project also creates the opposite orientation:
+
+```text
+fighter_a vs fighter_b -> fighter_a_wins
+fighter_b vs fighter_a -> 1 - fighter_a_wins
+```
+
+This teaches the model that matchup order should be symmetric. The future test
+set is not doubled, so evaluation still measures one prediction per historical
+fight.
+
+Not every plausible feature helps. A last-5-fights feature experiment slightly
+hurt the held-out result, so it was not kept in the baseline.

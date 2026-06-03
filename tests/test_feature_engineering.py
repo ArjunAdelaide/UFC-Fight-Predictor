@@ -21,13 +21,14 @@ def fight_row(
     loser: str,
     winner_sig_landed: int,
     loser_sig_landed: int,
+    method: str = "Decision - Unanimous",
 ) -> dict[str, object]:
     return {
         "event_name": f"{winner} vs {loser}",
         "event_date": event_date,
         "fighter_1": winner,
         "fighter_2": loser,
-        "method": "Decision - Unanimous",
+        "method": method,
         "round_num": 3,
         "time": "5:00",
         "weight_class": "Lightweight",
@@ -132,6 +133,34 @@ class FeatureEngineeringTests(unittest.TestCase):
 
         self.assertEqual(second_fight[f"{opponent_prefix}_fights"], 0)
         self.assertEqual(second_fight[f"{opponent_prefix}_sig_landed_per_fight"], 0)
+
+    def test_dirty_methods_are_excluded_by_default(self) -> None:
+        rows = [
+            fight_row(
+                event_date="2020-01-01",
+                winner="Alpha",
+                loser="Bravo",
+                winner_sig_landed=50,
+                loser_sig_landed=20,
+            ),
+            fight_row(
+                event_date="2020-02-01",
+                winner="Charlie",
+                loser="Delta",
+                winner_sig_landed=40,
+                loser_sig_landed=30,
+                method="Overturned",
+            ),
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "fights.csv"
+            write_fights_csv(rows, csv_path)
+
+            features = build_prefight_dataset(csv_path)
+
+        self.assertEqual(len(features), 1)
+        self.assertEqual(features.iloc[0]["winner"], "Alpha")
 
 
 if __name__ == "__main__":

@@ -14,20 +14,20 @@
   <line x1="80" x2="80" y1="74" y2="339" class="axis" />
   <line x1="80" x2="850" y1="339" y2="339" class="axis" />
   
-            <rect x="113" y="196" width="89" height="143" rx="6" fill="#16a34a" />
-            <text x="157.5" y="188" class="value" text-anchor="middle">54.1%</text>
+            <rect x="113" y="187" width="89" height="152" rx="6" fill="#16a34a" />
+            <text x="157.5" y="179" class="value" text-anchor="middle">57.7%</text>
             <text x="157.5" y="371" class="tick" text-anchor="middle">50-60%</text>
             
-            <rect x="267" y="158" width="89" height="181" rx="6" fill="#16a34a" />
-            <text x="311.5" y="150" class="value" text-anchor="middle">68.6%</text>
+            <rect x="267" y="160" width="89" height="179" rx="6" fill="#16a34a" />
+            <text x="311.5" y="152" class="value" text-anchor="middle">67.7%</text>
             <text x="311.5" y="371" class="tick" text-anchor="middle">60-70%</text>
             
-            <rect x="421" y="148" width="89" height="191" rx="6" fill="#16a34a" />
-            <text x="465.5" y="140" class="value" text-anchor="middle">72.2%</text>
+            <rect x="421" y="155" width="89" height="184" rx="6" fill="#16a34a" />
+            <text x="465.5" y="147" class="value" text-anchor="middle">69.6%</text>
             <text x="465.5" y="371" class="tick" text-anchor="middle">70-80%</text>
             
-            <rect x="575" y="94" width="89" height="245" rx="6" fill="#16a34a" />
-            <text x="619.5" y="86" class="value" text-anchor="middle">92.6%</text>
+            <rect x="575" y="74" width="89" height="265" rx="6" fill="#16a34a" />
+            <text x="619.5" y="66" class="value" text-anchor="middle">100.0%</text>
             <text x="619.5" y="371" class="tick" text-anchor="middle">80-90%</text>
             
             <rect x="729" y="141" width="89" height="198" rx="6" fill="#16a34a" />

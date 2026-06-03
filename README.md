@@ -18,8 +18,8 @@ baseline.
 
 ## Current Baseline
 
-The current NumPy logistic regression baseline achieves **62.1% accuracy** and
-**0.650 log loss** on a future-dated test split, compared with a **50.2%**
+The current NumPy logistic regression baseline achieves **63.3% accuracy** and
+**0.648 log loss** on a future-dated test split, compared with a **50.2%**
 majority-class baseline.
 
 ## Highlights
@@ -28,6 +28,7 @@ majority-class baseline.
 - Processes fights chronologically to avoid data leakage
 - Handles the raw dataset's winner/loser column structure safely
 - Randomly orients fights into neutral `fighter_a` / `fighter_b` matchups
+- Augments training with flipped matchup rows for orientation symmetry
 - Trains a logistic regression baseline implemented with NumPy
 - Evaluates with a future-dated train/test split
 - Provides a CLI for predicting future matchups
@@ -38,7 +39,7 @@ Current baseline performance on a date-based test split:
 
 | Model / Rule | Accuracy | Log Loss |
 | --- | ---: | ---: |
-| NumPy logistic regression | 62.1% | 0.650 |
+| NumPy logistic regression | 63.3% | 0.648 |
 | Majority class baseline | 50.2% | - |
 | Higher Elo rule | 55.4% | - |
 | Higher win percentage rule | 60.5% | - |
@@ -83,6 +84,10 @@ For each historical fight, the row is randomly oriented:
 
 - `fighter_a = winner`, `fighter_b = loser`, `fighter_a_wins = 1`
 - or `fighter_a = loser`, `fighter_b = winner`, `fighter_a_wins = 0`
+
+For model fitting, the training split is also augmented with the flipped version
+of each training row. The future-dated test split is not augmented, so evaluation
+still uses one row per historical fight.
 
 The feature pipeline also avoids using post-fight information from the fight
 being predicted. Stats such as method, round, finish time, knockdowns,
@@ -266,8 +271,8 @@ Example output:
 
 ```text
 Prediction
-  Islam Makhachev: 68.1%
-  Ilia Topuria: 31.9%
+  Islam Makhachev: 64.3%
+  Ilia Topuria: 35.7%
   fight date: 2026-06-03
   weight class: Lightweight
   profiles: loaded from outputs/current_fighter_profiles.pkl
@@ -320,9 +325,8 @@ must be regenerated when the underlying dataset changes.
 
 ## Roadmap
 
-- Plot calibration curves and confidence bucket charts
 - Reduce overlapping features for clearer coefficient interpretation
-- Add rolling last-3 and last-5 fight features
+- Explore rolling-window features and keep only those that improve validation
 - Improve Elo with recency, method, finish, and opponent-quality adjustments
 - Compare against scikit-learn, tree-based models, XGBoost, or LightGBM
 - Add external data such as odds, rankings, injuries, and weight misses

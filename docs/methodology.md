@@ -36,6 +36,20 @@ For each fight, the row is randomly oriented:
 
 This forces the model to learn matchup signals instead of column position.
 
+## Training Orientation Augmentation
+
+After the chronological feature rows are created, the training split is
+augmented with a flipped copy of each training matchup:
+
+```text
+fighter_a vs fighter_b -> fighter_a_wins
+fighter_b vs fighter_a -> 1 - fighter_a_wins
+```
+
+This gives the model both orientations of each training fight and encourages it
+to learn symmetric matchup relationships. The future-dated test split is not
+augmented, so evaluation still uses one row per historical fight.
+
 ## Leakage-Safe Feature Engineering
 
 The raw CSV includes post-fight stats such as:
