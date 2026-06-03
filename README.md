@@ -1,5 +1,7 @@
 # UFC Fight Predictor
 
+[![Tests](https://github.com/ArjunAdelaide/UFC-Fight-Predictor/actions/workflows/tests.yml/badge.svg)](https://github.com/ArjunAdelaide/UFC-Fight-Predictor/actions/workflows/tests.yml)
+
 A Python machine learning project for predicting UFC fight outcomes from
 historical fighter data.
 
