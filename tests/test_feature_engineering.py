@@ -11,7 +11,7 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from feature_engineering import build_prefight_dataset  # noqa: E402
+from feature_engineering import FighterState, build_prefight_dataset, update_elo  # noqa: E402
 
 
 def fight_row(
@@ -161,6 +161,25 @@ class FeatureEngineeringTests(unittest.TestCase):
 
         self.assertEqual(len(features), 1)
         self.assertEqual(features.iloc[0]["winner"], "Alpha")
+
+    def test_method_adjusted_elo_moves_more_for_finishes(self) -> None:
+        decision_winner = FighterState()
+        decision_loser = FighterState()
+        finish_winner = FighterState()
+        finish_loser = FighterState()
+
+        update_elo(decision_winner, decision_loser, method="decision")
+        update_elo(finish_winner, finish_loser, method="ko_tko")
+
+        self.assertEqual(decision_winner.elo, finish_winner.elo)
+        self.assertGreater(
+            finish_winner.method_adjusted_elo - 1500.0,
+            decision_winner.method_adjusted_elo - 1500.0,
+        )
+        self.assertLess(
+            finish_loser.method_adjusted_elo - 1500.0,
+            decision_loser.method_adjusted_elo - 1500.0,
+        )
 
 
 if __name__ == "__main__":

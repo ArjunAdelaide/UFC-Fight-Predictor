@@ -101,6 +101,7 @@ profile tracks previous results and rates, including:
 - streak and recent form
 - days since last fight
 - simple Elo rating
+- method-adjusted Elo rating
 
 The model mostly receives differences:
 
@@ -108,8 +109,14 @@ The model mostly receives differences:
 fighter_a value - fighter_b value
 ```
 
-Examples include `elo_diff`, `win_pct_diff`, `reach_cm_diff`,
-`recent_win_pct_diff`, and `sig_landed_per_fight_diff`.
+Examples include `elo_diff`, `method_adjusted_elo_diff`, `win_pct_diff`,
+`reach_cm_diff`, `recent_win_pct_diff`, and `sig_landed_per_fight_diff`.
+
+The method-adjusted Elo rating keeps the same basic Elo idea but moves ratings
+slightly more for KO/TKO and submission wins than for decisions. This improved
+log loss and Brier score slightly on the future-dated test split, even though
+top-line accuracy dipped a little. That is useful because the project is trying
+to produce probabilities, not only 50/50 winner picks.
 
 ## Train/Test Split
 
@@ -177,8 +184,8 @@ This is still a baseline project. It does not include betting odds, rankings,
 injury context, short-notice fight flags, weight misses, training camps, or
 market information.
 
-The current Elo system is also intentionally simple. Future versions could
-adjust Elo by method, opponent quality, recency, margin, or weight class.
+The current Elo systems are still intentionally simple. Future versions could
+adjust ratings by opponent quality, recency, margin, or weight class.
 
 The model should be treated as a learning and sports analytics project, not as
 betting advice.

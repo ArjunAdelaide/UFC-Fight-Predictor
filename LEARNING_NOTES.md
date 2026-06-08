@@ -77,3 +77,11 @@ hurt the held-out result, so it was not kept in the baseline.
 Stronger model classes also need to earn their place. Random forests and
 gradient boosting were tested, but the NumPy logistic regression baseline still
 had better log loss and Brier score on the future-dated test split.
+
+The next accepted feature improvement was method-adjusted Elo. The original Elo
+feature treats every win the same. The new rating moves a fighter's Elo a little
+more for KO/TKO and submission wins than for decisions.
+
+This did not improve accuracy, which dipped slightly from about 63.3% to 63.0%.
+But it improved log loss and Brier score slightly. That matters because the
+model is trying to produce useful probabilities, not just winner picks.

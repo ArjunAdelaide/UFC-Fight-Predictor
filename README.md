@@ -18,7 +18,7 @@ baseline.
 
 ## Current Baseline
 
-The current NumPy logistic regression baseline achieves **63.3% accuracy** and
+The current NumPy logistic regression baseline achieves **63.0% accuracy** and
 **0.648 log loss** on a future-dated test split, compared with a **50.2%**
 majority-class baseline.
 
@@ -29,6 +29,7 @@ majority-class baseline.
 - Handles the raw dataset's winner/loser column structure safely
 - Randomly orients fights into neutral `fighter_a` / `fighter_b` matchups
 - Augments training with flipped matchup rows for orientation symmetry
+- Tracks both simple Elo and method-adjusted Elo fighter ratings
 - Trains a logistic regression baseline implemented with NumPy
 - Compares the baseline against several scikit-learn models
 - Evaluates with a future-dated train/test split
@@ -40,7 +41,7 @@ Current baseline performance on a date-based test split:
 
 | Model / Rule | Accuracy | Log Loss |
 | --- | ---: | ---: |
-| NumPy logistic regression | 63.3% | 0.648 |
+| NumPy logistic regression | 63.0% | 0.648 |
 | Majority class baseline | 50.2% | - |
 | Higher Elo rule | 55.4% | - |
 | Higher win percentage rule | 60.5% | - |
@@ -64,12 +65,12 @@ has the best log loss and Brier score.
 
 | Model | Accuracy | Log Loss | Brier |
 | --- | ---: | ---: | ---: |
-| NumPy logistic regression | 63.3% | 0.648 | 0.228 |
-| sklearn logistic regression C=0.1 | 63.4% | 0.649 | 0.229 |
-| sklearn logistic regression C=1.0 | 62.9% | 0.650 | 0.229 |
-| HistGradientBoosting | 59.9% | 0.656 | 0.232 |
-| GradientBoosting | 60.7% | 0.656 | 0.232 |
-| RandomForest | 60.6% | 0.668 | 0.237 |
+| NumPy logistic regression | 63.0% | 0.648 | 0.228 |
+| sklearn logistic regression C=0.1 | 63.2% | 0.648 | 0.228 |
+| sklearn logistic regression C=1.0 | 63.1% | 0.649 | 0.229 |
+| GradientBoosting | 60.3% | 0.655 | 0.232 |
+| HistGradientBoosting | 60.7% | 0.656 | 0.232 |
+| RandomForest | 60.8% | 0.665 | 0.236 |
 
 The comparison can be regenerated with:
 
@@ -149,6 +150,7 @@ Examples include:
 - current streak, longest win streak, and recent form
 - days since last fight
 - simple Elo difference
+- method-adjusted Elo difference
 
 Categorical inputs include:
 
@@ -243,13 +245,9 @@ outputs/baseline_metrics.csv
 outputs/baseline_coefficients.csv
 outputs/calibration_buckets.csv
 outputs/confidence_buckets.csv
-outputs/sklearn_model_comparison.csv
 outputs/baseline_logistic_model.npz
 outputs/current_fighter_profiles.pkl
 outputs/model_report.md
-outputs/charts/model_comparison.svg
-outputs/charts/calibration_buckets.svg
-outputs/charts/confidence_buckets.svg
 ```
 
 Output files:
@@ -261,7 +259,6 @@ Output files:
 | `baseline_coefficients.csv` | Learned logistic regression coefficients |
 | `calibration_buckets.csv` | Predicted probability buckets vs. actual Fighter A win rate |
 | `confidence_buckets.csv` | Accuracy grouped by model confidence |
-| `sklearn_model_comparison.csv` | Comparison against stronger scikit-learn models |
 | `baseline_logistic_model.npz` | Saved model used by the prediction CLI |
 | `current_fighter_profiles.pkl` | Cached latest fighter histories for faster prediction |
 | `model_report.md` | Markdown summary of the latest training run |
@@ -274,6 +271,12 @@ To regenerate the SVG charts after training, run:
 
 ```bash
 python3 src/generate_charts.py
+```
+
+To regenerate the scikit-learn model comparison, run:
+
+```bash
+python3 src/compare_models.py --use-existing-features
 ```
 
 ## Prediction
@@ -333,6 +336,7 @@ The current tests focus on the most important ML safety checks:
 
 - `fighter_a_wins` matches the randomized Fighter A / Fighter B orientation
 - current-fight post-fight stats do not leak into that fight's pre-fight row
+- method-adjusted Elo moves more for finishes than decisions
 
 ## Limitations
 
@@ -346,7 +350,7 @@ This is a baseline model and does not currently include:
 - fight camp or team data
 - title fight or main event flags
 - opponent-quality adjusted statistics
-- advanced Elo variants
+- opponent-quality adjusted ratings
 
 Cached fighter profiles make predictions faster after training, but the cache
 must be regenerated when the underlying dataset changes.
@@ -355,7 +359,7 @@ must be regenerated when the underlying dataset changes.
 
 - Reduce overlapping features for clearer coefficient interpretation
 - Explore rolling-window features and keep only those that improve validation
-- Improve Elo with recency, method, finish, and opponent-quality adjustments
+- Improve Elo with recency, opponent-quality, and weight-class adjustments
 - Compare against scikit-learn, tree-based models, XGBoost, or LightGBM
 - Add external data such as odds, rankings, injuries, and weight misses
 

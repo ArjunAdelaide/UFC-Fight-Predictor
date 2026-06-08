@@ -140,6 +140,7 @@ class FighterState:
     recent_results: deque[int] = field(default_factory=lambda: deque(maxlen=3))
     recent_sig_diffs: deque[float] = field(default_factory=lambda: deque(maxlen=3))
     elo: float = 1500.0
+    method_adjusted_elo: float = 1500.0
 
     def profile(self, fight_date: pd.Timestamp) -> dict[str, float]:
         fights = self.fights
@@ -197,6 +198,7 @@ class FighterState:
             "days_since_last_fight": days_since_last,
             "is_debut": 1.0 if fights == 0 else 0.0,
             "elo": self.elo,
+            "method_adjusted_elo": self.method_adjusted_elo,
         }
 
     def update(
@@ -263,11 +265,39 @@ class FighterState:
         self.last_fight_date = fight_date
 
 
-def update_elo(winner: FighterState, loser: FighterState, k_factor: float = 32.0) -> None:
-    expected_winner = 1.0 / (1.0 + 10.0 ** ((loser.elo - winner.elo) / 400.0))
+def elo_delta(winner_rating: float, loser_rating: float, k_factor: float) -> tuple[float, float]:
+    expected_winner = 1.0 / (1.0 + 10.0 ** ((loser_rating - winner_rating) / 400.0))
     expected_loser = 1.0 - expected_winner
-    winner.elo += k_factor * (1.0 - expected_winner)
-    loser.elo += k_factor * (0.0 - expected_loser)
+    return k_factor * (1.0 - expected_winner), k_factor * (0.0 - expected_loser)
+
+
+def method_elo_multiplier(method: str) -> float:
+    if method in {"ko_tko", "submission"}:
+        return 1.25
+    if method == "decision":
+        return 1.0
+    return 0.9
+
+
+def update_elo(
+    winner: FighterState,
+    loser: FighterState,
+    *,
+    method: str,
+    k_factor: float = 32.0,
+) -> None:
+    winner_delta, loser_delta = elo_delta(winner.elo, loser.elo, k_factor)
+    winner.elo += winner_delta
+    loser.elo += loser_delta
+
+    adjusted_k = k_factor * method_elo_multiplier(method)
+    winner_delta, loser_delta = elo_delta(
+        winner.method_adjusted_elo,
+        loser.method_adjusted_elo,
+        adjusted_k,
+    )
+    winner.method_adjusted_elo += winner_delta
+    loser.method_adjusted_elo += loser_delta
 
 
 def load_fights(csv_path: Path, *, include_dirty_methods: bool = False) -> pd.DataFrame:
@@ -345,7 +375,7 @@ def apply_fight_result(
         ctrl_against_seconds=stats.f1_ctrl_seconds,
         duration_seconds=stats.duration_seconds,
     )
-    update_elo(winner_state, loser_state)
+    update_elo(winner_state, loser_state, method=stats.method)
 
 
 def fighter_measurements(row: pd.Series, prefix: str, fight_date: pd.Timestamp) -> dict[str, Any]:
