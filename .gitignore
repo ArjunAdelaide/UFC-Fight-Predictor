@@ -15,6 +15,7 @@ outputs/*.pkl
 !outputs/baseline_metrics.csv
 !outputs/calibration_buckets.csv
 !outputs/confidence_buckets.csv
+!outputs/sklearn_model_comparison.csv
 !outputs/model_report.md
 
 # OS/editor noise

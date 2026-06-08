@@ -140,6 +140,12 @@ The model outputs:
 P(fighter_a_wins)
 ```
 
+The project also compares this baseline against several scikit-learn models,
+including logistic regression, random forest, gradient boosting, and histogram
+gradient boosting. The NumPy logistic regression model remains the selected
+baseline because it currently has the best log loss and Brier score on the
+future-dated test split.
+
 ## Probability Evaluation
 
 Accuracy alone is not enough for a probability model. A model can be accurate

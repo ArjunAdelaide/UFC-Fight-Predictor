@@ -30,6 +30,7 @@ majority-class baseline.
 - Randomly orients fights into neutral `fighter_a` / `fighter_b` matchups
 - Augments training with flipped matchup rows for orientation symmetry
 - Trains a logistic regression baseline implemented with NumPy
+- Compares the baseline against several scikit-learn models
 - Evaluates with a future-dated train/test split
 - Provides a CLI for predicting future matchups
 
@@ -54,6 +55,27 @@ test:  fights on or after 2024-01-01
 
 This split is designed to approximate the real use case: training on past
 fights and evaluating on future fights.
+
+## Stronger Model Comparison
+
+Several scikit-learn models were tested on the same date-based split. The
+current NumPy logistic regression baseline remains the selected model because it
+has the best log loss and Brier score.
+
+| Model | Accuracy | Log Loss | Brier |
+| --- | ---: | ---: | ---: |
+| NumPy logistic regression | 63.3% | 0.648 | 0.228 |
+| sklearn logistic regression C=0.1 | 63.4% | 0.649 | 0.229 |
+| sklearn logistic regression C=1.0 | 62.9% | 0.650 | 0.229 |
+| HistGradientBoosting | 59.9% | 0.656 | 0.232 |
+| GradientBoosting | 60.7% | 0.656 | 0.232 |
+| RandomForest | 60.6% | 0.668 | 0.237 |
+
+The comparison can be regenerated with:
+
+```bash
+python3 src/compare_models.py --use-existing-features
+```
 
 ## Visual Summary
 
@@ -150,12 +172,15 @@ Categorical inputs include:
 |-- docs
 |   `-- methodology.md
 |-- src
+|   |-- compare_models.py
 |   |-- feature_engineering.py
 |   |-- generate_charts.py
 |   |-- predict_matchup.py
 |   `-- train_baseline.py
 |-- tests
-|   `-- test_feature_engineering.py
+|   |-- test_feature_engineering.py
+|   |-- test_predict_matchup.py
+|   `-- test_train_baseline.py
 `-- outputs
     |-- charts
     |   |-- calibration_buckets.svg
@@ -164,6 +189,7 @@ Categorical inputs include:
     |-- baseline_coefficients.csv
     |-- calibration_buckets.csv
     |-- confidence_buckets.csv
+    |-- sklearn_model_comparison.csv
     |-- baseline_logistic_model.npz
     |-- current_fighter_profiles.pkl
     |-- baseline_metrics.csv
@@ -217,6 +243,7 @@ outputs/baseline_metrics.csv
 outputs/baseline_coefficients.csv
 outputs/calibration_buckets.csv
 outputs/confidence_buckets.csv
+outputs/sklearn_model_comparison.csv
 outputs/baseline_logistic_model.npz
 outputs/current_fighter_profiles.pkl
 outputs/model_report.md
@@ -234,6 +261,7 @@ Output files:
 | `baseline_coefficients.csv` | Learned logistic regression coefficients |
 | `calibration_buckets.csv` | Predicted probability buckets vs. actual Fighter A win rate |
 | `confidence_buckets.csv` | Accuracy grouped by model confidence |
+| `sklearn_model_comparison.csv` | Comparison against stronger scikit-learn models |
 | `baseline_logistic_model.npz` | Saved model used by the prediction CLI |
 | `current_fighter_profiles.pkl` | Cached latest fighter histories for faster prediction |
 | `model_report.md` | Markdown summary of the latest training run |

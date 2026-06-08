@@ -73,3 +73,7 @@ fight.
 
 Not every plausible feature helps. A last-5-fights feature experiment slightly
 hurt the held-out result, so it was not kept in the baseline.
+
+Stronger model classes also need to earn their place. Random forests and
+gradient boosting were tested, but the NumPy logistic regression baseline still
+had better log loss and Brier score on the future-dated test split.
