@@ -153,6 +153,11 @@ gradient boosting. The NumPy logistic regression model remains the selected
 baseline because it currently has the best log loss and Brier score on the
 future-dated test split.
 
+The implementation is organized as a small Python package. Domain state, raw
+data parsing, feature construction, preprocessing, model training, evaluation,
+artifact persistence, prediction, and CLI entrypoints are separated so the
+leakage-sensitive parts of the project are easier to test and review.
+
 ## Probability Evaluation
 
 Accuracy alone is not enough for a probability model. A model can be accurate

@@ -11,7 +11,8 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from feature_engineering import FighterState, build_prefight_dataset, update_elo  # noqa: E402
+from ufc_predictor.domain import FighterState, update_elo  # noqa: E402
+from ufc_predictor.features import build_prefight_dataset  # noqa: E402
 
 
 def fight_row(

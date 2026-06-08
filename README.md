@@ -165,6 +165,7 @@ Categorical inputs include:
 .
 |-- LEARNING_NOTES.md
 |-- README.md
+|-- pyproject.toml
 |-- requirements.txt
 |-- .github
 |   `-- workflows
@@ -178,8 +179,23 @@ Categorical inputs include:
 |   |-- feature_engineering.py
 |   |-- generate_charts.py
 |   |-- predict_matchup.py
-|   `-- train_baseline.py
+|   |-- train_baseline.py
+|   `-- ufc_predictor
+|       |-- artifacts.py
+|       |-- charts.py
+|       |-- config.py
+|       |-- data.py
+|       |-- domain.py
+|       |-- evaluation.py
+|       |-- features.py
+|       |-- model.py
+|       |-- model_comparison.py
+|       |-- prediction.py
+|       |-- preprocessing.py
+|       |-- reporting.py
+|       `-- training.py
 |-- tests
+|   |-- test_artifacts.py
 |   |-- test_feature_engineering.py
 |   |-- test_predict_matchup.py
 |   `-- test_train_baseline.py
@@ -205,6 +221,12 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+For local development, you can also install the package in editable mode:
+
+```bash
+pip install -e .
 ```
 
 The current code expects a cleaned UFC dataset CSV. The recommended public
@@ -259,7 +281,7 @@ Output files:
 | `baseline_coefficients.csv` | Learned logistic regression coefficients |
 | `calibration_buckets.csv` | Predicted probability buckets vs. actual Fighter A win rate |
 | `confidence_buckets.csv` | Accuracy grouped by model confidence |
-| `baseline_logistic_model.npz` | Saved model used by the prediction CLI |
+| `baseline_logistic_model.npz` | Saved model artifact used by the prediction CLI |
 | `current_fighter_profiles.pkl` | Cached latest fighter histories for faster prediction |
 | `model_report.md` | Markdown summary of the latest training run |
 
@@ -302,8 +324,8 @@ Example output:
 
 ```text
 Prediction
-  Islam Makhachev: 64.3%
-  Ilia Topuria: 35.7%
+  Islam Makhachev: 63.9%
+  Ilia Topuria: 36.1%
   fight date: 2026-06-03
   weight class: Lightweight
   profiles: loaded from outputs/current_fighter_profiles.pkl
@@ -337,6 +359,7 @@ The current tests focus on the most important ML safety checks:
 - `fighter_a_wins` matches the randomized Fighter A / Fighter B orientation
 - current-fight post-fight stats do not leak into that fight's pre-fight row
 - method-adjusted Elo moves more for finishes than decisions
+- saved model artifacts preserve arrays and metadata on round trip
 
 ## Limitations
 
